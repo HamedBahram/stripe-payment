@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
+import Image from 'next/image'
 
 const Card = ({ price }) => {
   const { items, addItem } = useCart()
@@ -25,10 +25,11 @@ const Card = ({ price }) => {
     <div>
       <div className='relative'>
         <div className='relative w-full h-72 rounded-lg overflow-hidden'>
-          <img
+          <Image
             src={product.images[0]}
             alt={product.description}
-            className='w-full h-full object-center object-cover'
+            className='object-scale-down'
+            layout='fill'
           />
         </div>
         <div className='relative mt-4'>

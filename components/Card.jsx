@@ -44,7 +44,7 @@ const Card = ({ price }) => {
           <p className='relative text-lg font-semibold text-white'>
             {(unit_amount / 100).toLocaleString('en-CA', {
               style: 'currency',
-              currency: 'CAD',
+              currency: 'CAD'
             })}
           </p>
         </div>

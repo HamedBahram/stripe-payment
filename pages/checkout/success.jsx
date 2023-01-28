@@ -14,7 +14,7 @@ function CheckoutSuccessPage() {
   }, [resetCart])
 
   const {
-    query: { sessionId },
+    query: { sessionId }
   } = useRouter()
 
   const URL = sessionId ? `/api/stripe/sessions/${sessionId}` : null
@@ -26,10 +26,11 @@ function CheckoutSuccessPage() {
   const products = checkoutSession?.line_items?.data?.map(item => ({
     ...item.price.product,
     price: item.price.unit_amount,
-    quantity: item.quantity,
+    quantity: item.quantity
   }))
 
-  const payment = checkoutSession?.payment_intent?.charges?.data[0]?.payment_method_details
+  const payment =
+    checkoutSession?.payment_intent?.charges?.data[0]?.payment_method_details
   const subtotal = checkoutSession?.amount_subtotal
   const total = checkoutSession?.amount_total
   const discount = checkoutSession?.total_details?.amount_discount
@@ -39,18 +40,22 @@ function CheckoutSuccessPage() {
     <div className='bg-white'>
       <div className='max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
         <div className='max-w-xl'>
-          <h1 className='text-sm font-medium text-indigo-600'>Payment successful</h1>
+          <h1 className='text-sm font-medium text-indigo-600'>
+            Payment successful
+          </h1>
           <p className='mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl'>
             Thanks for ordering
           </p>
           <p className='mt-2 text-base text-gray-500'>
-            We appreciate your order, we’re currently processing it. So hang tight and we’ll send
-            you confirmation very soon!
+            We appreciate your order, we’re currently processing it. So hang
+            tight and we’ll send you confirmation very soon!
           </p>
 
           <dl className='mt-12 text-sm font-medium'>
             <dt className='text-gray-900'>Order number</dt>
-            <dd className='text-indigo-600 mt-2'>{checkoutSession?.payment_intent?.id}</dd>
+            <dd className='text-indigo-600 mt-2'>
+              {checkoutSession?.payment_intent?.id}
+            </dd>
           </dl>
         </div>
 
@@ -59,7 +64,10 @@ function CheckoutSuccessPage() {
 
           <h3 className='sr-only'>Items</h3>
           {products?.map(product => (
-            <div key={product.id} className='py-10 border-b border-gray-200 flex space-x-6'>
+            <div
+              key={product.id}
+              className='py-10 border-b border-gray-200 flex space-x-6'
+            >
               <img
                 src={product.images[0]}
                 alt={product.description}
@@ -70,7 +78,9 @@ function CheckoutSuccessPage() {
                   <h4 className='font-medium text-gray-900'>
                     <a href={product.url}>{product.name}</a>
                   </h4>
-                  <p className='mt-2 text-sm text-gray-600'>{product.description}</p>
+                  <p className='mt-2 text-sm text-gray-600'>
+                    {product.description}
+                  </p>
                 </div>
                 <div className='mt-6 flex-1 flex items-end'>
                   <dl className='flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6'>
@@ -83,7 +93,7 @@ function CheckoutSuccessPage() {
                       <dd className='ml-2 text-gray-700'>
                         {(product.price / 100).toLocaleString('en-CA', {
                           style: 'currency',
-                          currency: 'CAD',
+                          currency: 'CAD'
                         })}
                       </dd>
                     </div>
@@ -100,14 +110,21 @@ function CheckoutSuccessPage() {
             <dl className='grid grid-cols-2 gap-x-6 border-t border-gray-200 text-sm py-10'>
               {payment?.card && (
                 <div>
-                  <dt className='font-medium text-gray-900'>Payment Information</dt>
+                  <dt className='font-medium text-gray-900'>
+                    Payment Information
+                  </dt>
                   <dd className='mt-2 text-gray-700'>
                     <p>{payment.card.wallet}</p>
-                    <p className='font-medium'>{payment.card.brand.toUpperCase()}</p>
+                    <p className='font-medium'>
+                      {payment.card.brand.toUpperCase()}
+                    </p>
                     <div className='flex-auto'>
-                      <p className='text-gray-900'>Ending with {payment.card.last4}</p>
+                      <p className='text-gray-900'>
+                        Ending with {payment.card.last4}
+                      </p>
                       <p>
-                        Expires on {payment.card.exp_month} / {payment.card.exp_year}
+                        Expires on {payment.card.exp_month} /{' '}
+                        {payment.card.exp_year}
                       </p>
                     </div>
                   </dd>
@@ -119,8 +136,12 @@ function CheckoutSuccessPage() {
                   <address className='not-italic'>
                     <span className='block'>Name: {customer?.name}</span>
                     <span className='block'>Email: {customer?.email}</span>
-                    <span className='block'>Country: {customer?.address.country}</span>
-                    <span className='block'>Postal Code:{customer?.address.postal_code}</span>
+                    <span className='block'>
+                      Country: {customer?.address.country}
+                    </span>
+                    <span className='block'>
+                      Postal Code:{customer?.address.postal_code}
+                    </span>
                   </address>
                 </dd>
               </div>
@@ -134,7 +155,7 @@ function CheckoutSuccessPage() {
                 <dd className='text-gray-700'>
                   {(subtotal / 100).toLocaleString('en-CA', {
                     style: 'currency',
-                    currency: 'CAD',
+                    currency: 'CAD'
                   })}
                 </dd>
               </div>
@@ -144,7 +165,7 @@ function CheckoutSuccessPage() {
                   -
                   {(discount / 100).toLocaleString('en-CA', {
                     style: 'currency',
-                    currency: 'CAD',
+                    currency: 'CAD'
                   })}
                 </dd>
               </div>
@@ -153,7 +174,7 @@ function CheckoutSuccessPage() {
                 <dd className='text-gray-700'>
                   {(tax / 100).toLocaleString('en-CA', {
                     style: 'currency',
-                    currency: 'CAD',
+                    currency: 'CAD'
                   })}
                 </dd>
               </div>
@@ -162,7 +183,7 @@ function CheckoutSuccessPage() {
                 <dd className='text-gray-900'>
                   {(total / 100).toLocaleString('en-CA', {
                     style: 'currency',
-                    currency: 'CAD',
+                    currency: 'CAD'
                   })}
                 </dd>
               </div>

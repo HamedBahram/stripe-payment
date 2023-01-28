@@ -12,9 +12,9 @@ const HomePage = ({ prices: { data = [], has_more } }) => {
     if (!hasMore || !lastProductId) return
 
     try {
-      const { prices } = await fetch(`/api/stripe/prices?starting_after=${lastProductId}`).then(
-        res => res.json()
-      )
+      const { prices } = await fetch(
+        `/api/stripe/prices?starting_after=${lastProductId}`
+      ).then(res => res.json())
       if (prices.data) {
         setProducts(products => [...products, ...prices.data])
         setHasMore(prices.has_more)
@@ -38,7 +38,7 @@ const HomePage = ({ prices: { data = [], has_more } }) => {
         <button
           onClick={loadMore}
           disabled={!hasMore}
-          className='mt-10 w-full bg-blue-100 rounded-md py-2 px-8 text-sm font-medium text-blue-900 hover:bg-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-100'
+          className='mt-10 w-full bg-sky-100 rounded-md py-2 px-8 text-sm font-medium text-sky-900 hover:bg-sky-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-100'
         >
           Load more
         </button>
@@ -50,15 +50,15 @@ const HomePage = ({ prices: { data = [], has_more } }) => {
 export async function getServerSideProps() {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
   const prices = await stripe.prices.list({
-    active: true, // Only bring active prices (a product can have multiple prices)
+    active: true,
     limit: 2,
-    expand: ['data.product'],
+    expand: ['data.product']
   })
 
   return {
     props: {
-      prices,
-    },
+      prices
+    }
   }
 }
 

@@ -10,7 +10,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header setCartSliderIsOpen={setCartSliderIsOpen} />
-      <ShoppingCartSlideOver open={cartSliderIsOpen} setCartSliderIsOpen={setCartSliderIsOpen} />
+      <ShoppingCartSlideOver
+        open={cartSliderIsOpen}
+        setCartSliderIsOpen={setCartSliderIsOpen}
+      />
       <main>{children}</main>
       <Footer />
     </>

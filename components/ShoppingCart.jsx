@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../context/CartContext'
 import { checkout } from '../lib/checkout'
 
@@ -56,14 +56,17 @@ export default function ShoppingCartSlideOver({ open, setCartSliderIsOpen }) {
                             onClick={() => setCartSliderIsOpen(false)}
                           >
                             <span className='sr-only'>Close panel</span>
-                            <XIcon className='h-6 w-6' aria-hidden='true' />
+                            <XMarkIcon className='h-6 w-6' aria-hidden='true' />
                           </button>
                         </div>
                       </div>
 
                       <div className='mt-8'>
                         <div className='flow-root'>
-                          <ul role='list' className='-my-6 divide-y divide-gray-200'>
+                          <ul
+                            role='list'
+                            className='-my-6 divide-y divide-gray-200'
+                          >
                             {items.map(price => (
                               <li key={price.id} className='flex py-6'>
                                 <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
@@ -78,12 +81,17 @@ export default function ShoppingCartSlideOver({ open, setCartSliderIsOpen }) {
                                   <div>
                                     <div className='flex justify-between text-base font-medium text-gray-900'>
                                       <h3>
-                                        <a href={price.product.href}> {price.product.name} </a>
+                                        <a href={price.product.href}>
+                                          {' '}
+                                          {price.product.name}{' '}
+                                        </a>
                                       </h3>
                                       <p className='ml-4'>
-                                        {(price.unit_amount / 100).toLocaleString('en-CA', {
+                                        {(
+                                          price.unit_amount / 100
+                                        ).toLocaleString('en-CA', {
                                           style: 'currency',
-                                          currency: 'CAD',
+                                          currency: 'CAD'
                                         })}
                                       </p>
                                     </div>
@@ -118,7 +126,7 @@ export default function ShoppingCartSlideOver({ open, setCartSliderIsOpen }) {
                         <p>
                           {(subTotal / 100).toLocaleString('en-CA', {
                             style: 'currency',
-                            currency: 'CAD',
+                            currency: 'CAD'
                           })}
                         </p>
                       </div>
@@ -142,7 +150,8 @@ export default function ShoppingCartSlideOver({ open, setCartSliderIsOpen }) {
                             className='font-medium text-emerald-600 hover:text-emerald-500'
                             onClick={() => setCartSliderIsOpen(false)}
                           >
-                            Continue Shopping<span aria-hidden='true'> &rarr;</span>
+                            Continue Shopping
+                            <span aria-hidden='true'> &rarr;</span>
                           </button>
                         </p>
                       </div>
